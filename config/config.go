@@ -5,7 +5,8 @@ import (
 )
 
 type Config struct {
-	Port string
+	Port     string
+	GrpcPort string
 }
 
 func Load() *Config {
@@ -13,5 +14,9 @@ func Load() *Config {
 	if port == "" {
 		port = "8080"
 	}
-	return &Config{Port: port}
+	grpcPort := os.Getenv("GRPC_PORT")
+	if grpcPort == "" {
+		grpcPort = "9090"
+	}
+	return &Config{Port: port, GrpcPort: grpcPort}
 }
